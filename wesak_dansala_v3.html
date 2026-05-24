@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>වෙසක් දාන්සල 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+:root{
+  --gold:#FFD700;--dgold:#B8860B;--saffron:#FF6B00;--pink:#FF69B4;--dpink:#c2185b;
+  --navy:#06061e;--mid:#0e0e3a;--card:rgba(255,255,255,0.05);
+  --white:#FFFEF0;--green:#1a5c20;
+  --open-glow:rgba(76,175,80,0.6);--stop-glow:rgba(244,67,54,0.6);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans Sinhala','Noto Sans',sans-serif;
+  background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;
+}
+button{font-family:inherit;cursor:pointer;}
+input{font-family:inherit;}
+
+/* ===== OPEN/STOP BROADCAST ===== */
+#broadcastBar{
+  display:none;position:fixed;top:0;left:0;right:0;z-index:9998;
+  padding:10px 20px;text-align:center;font-size:14px;font-weight:700;
+  animation:slideDown 0.5s ease;
+}
+#broadcastBar.open-bar{background:rgba(76,175,80,0.92);color:#fff;box-shadow:0 2px 20px var(--open-glow);}
+#broadcastBar.stop-bar{background:rgba(244,67,54,0.92);color:#fff;box-shadow:0 2px 20px var(--stop-glow);}
+@keyframes slideDown{from{transform:translateY(-100%);}to{transform:translateY(0);}}
+
+/* ===== SITE CLOSED OVERLAY ===== */
+#closedOverlay{
+  display:none;position:fixed;inset:0;z-index:9990;
+  background:rgba(4,4,20,0.97);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;
+}
+#closedOverlay.on{display:flex;}
+.closed-lotus{font-size:80px;animation:floatBig 3s ease-in-out infinite;}
+@keyframes floatBig{0%,100%{transform:translateY(0);}50%{transform:translateY(-18px);}}
+.closed-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(22px,5vw,38px);color:var(--gold);
+  text-shadow:0 0 30px rgba(255,215,0,0.8);margin:20px 0 12px;
+}
+.closed-msg{font-size:16px;color:var(--pink);max-width:480px;line-height:1.9;}
+
+/* ===== LOGIN PAGE ===== */
+#loginPage{
+  position:fixed;inset:0;z-index:500;
+  background:var(--navy);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;
+}
+/* full-screen animated background for login */
+#loginPage .lbg{
+  position:absolute;inset:0;overflow:hidden;z-index:0;
+}
+/* SVG Wesak scene background */
+#loginPage .lbg svg{width:100%;height:100%;object-fit:cover;}
+#loginPage .lbg-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,6,30,0.6) 0%,rgba(6,6,30,0.75) 100%);
+}
+
+.login-card{
+  position:relative;z-index:1;
+  background:rgba(10,10,40,0.88);
+  border:1px solid rgba(255,215,0,0.35);
+  border-radius:22px;padding:36px 30px;
+  width:100%;max-width:420px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 0 60px rgba(255,215,0,0.12),inset 0 0 40px rgba(255,215,0,0.03);
+  animation:cardIn 0.8s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes cardIn{from{opacity:0;transform:scale(0.85) translateY(30px);}to{opacity:1;transform:scale(1) translateY(0);}}
+
+/* Animated wesak kudu above card */
+.login-kudu-row{
+  display:flex;justify-content:center;gap:8px;margin-bottom:6px;
+  position:relative;z-index:1;
+}
+
+.login-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(18px,4vw,24px);color:var(--gold);text-align:center;
+  text-shadow:0 0 15px rgba(255,215,0,0.6);margin-bottom:4px;
+}
+.login-sub{text-align:center;color:var(--pink);font-size:13px;margin-bottom:24px;}
+.form-group{margin-bottom:15px;}
+.form-label{display:block;color:var(--gold);font-size:12px;margin-bottom:5px;font-weight:600;letter-spacing:0.5px;}
+.form-input{
+  width:100%;padding:11px 14px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,215,0,0.25);
+  border-radius:10px;color:var(--white);font-size:14px;
+  transition:all 0.3s;
+}
+.form-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 12px rgba(255,215,0,0.2);background:rgba(255,255,255,0.1);}
+.form-input::placeholder{color:rgba(255,255,255,0.22);}
+.form-submit{
+  width:100%;padding:13px;
+  background:linear-gradient(135deg,var(--saffron),var(--dgold));
+  border:none;border-radius:11px;color:#1a0800;
+  font-weight:700;font-size:15px;
+  transition:all 0.3s;margin-top:4px;letter-spacing:0.5px;
+}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,0,0.45);}
+.form-toggle{text-align:center;margin-top:13px;color:rgba(255,255,255,0.45);font-size:13px;}
+.form-toggle a{color:var(--pink);cursor:pointer;text-decoration:none;}
+.form-toggle a:hover{text-decoration:underline;}
+.form-err{color:#ff6b6b;font-size:12px;text-align:center;min-height:16px;margin-top:6px;}
+
+/* ===== MAIN SITE (hidden until login) ===== */
+#mainSite{display:none;}
+
+/* ===== PARTICLE CANVAS ===== */
+#particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  overflow:hidden;z-index:2;
+}
+.hero-sky{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a1a5e 0%,#06061e 70%);
+  z-index:0;
+}
+/* Stars */
+.hero-stars{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.hero-stars span{
+  position:absolute;border-radius:50%;background:#fff;
+  animation:twinkle ease-in-out infinite;
+}
+@keyframes twinkle{0%,100%{opacity:0.2;transform:scale(0.8);}50%{opacity:1;transform:scale(1.2);}}
+
+/* === GENERATED WESAK KUDU SVG STRIP === */
+.kudu-strip{
+  position:relative;z-index:10;width:100%;padding:10px 0 0;
+  background:linear-gradient(180deg,rgba(6,6,30,0.9) 0%,transparent 100%);
+  display:flex;justify-content:center;align-items:flex-start;
+  gap:clamp(5px,1.5vw,14px);flex-wrap:nowrap;overflow:hidden;min-height:120px;
+}
+.kudu-wrap{display:flex;flex-direction:column;align-items:center;animation:kudusway ease-in-out infinite;}
+.kudu-wrap:nth-child(odd){animation-direction:reverse;}
+@keyframes kudusway{0%,100%{transform:rotate(-5deg) translateY(0);}50%{transform:rotate(5deg) translateY(-4px);}}
+.kudu-wire{width:1px;height:clamp(14px,2.5vw,22px);background:rgba(255,215,0,0.55);}
+
+/* === HERO CONTENT === */
+.hero-content{
+  position:relative;z-index:10;
+  display:flex;flex-direction:column;align-items:center;
+  padding:clamp(16px,3vw,40px) 20px 20px;
+  text-align:center;width:100%;
+}
+.hero-flame{
+  font-size:clamp(44px,8vw,72px);
+  animation:flameFloat 2.8s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px rgba(255,215,0,0.8));
+  margin-bottom:8px;
+}
+@keyframes flameFloat{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-14px) scale(1.06);}}
+.hero-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(20px,5.5vw,52px);
+  color:var(--gold);
+  text-shadow:0 0 30px rgba(255,215,0,0.9),0 0 70px rgba(255,107,0,0.5);
+  animation:titleGlow 4s ease-in-out infinite alternate;
+  line-height:1.2;margin-bottom:6px;
+}
+@keyframes titleGlow{from{text-shadow:0 0 20px rgba(255,215,0,0.8),0 0 50px rgba(255,107,0,0.4);}to{text-shadow:0 0 50px rgba(255,215,0,1),0 0 100px rgba(255,107,0,0.9),0 0 140px rgba(255,215,0,0.3);}}
+.hero-sub{font-size:clamp(13px,2.8vw,20px);color:var(--pink);text-shadow:0 0 12px rgba(255,105,180,0.6);margin-bottom:5px;}
+.hero-year{font-size:clamp(10px,1.8vw,14px);color:var(--saffron);letter-spacing:3px;opacity:0.9;}
+
+/* === GENERATED LOTUS ROW === */
+.lotus-scene{
+  position:relative;z-index:10;width:100%;
+  margin:10px 0 0;padding:0 10px;
+  display:flex;justify-content:center;align-items:flex-end;gap:clamp(8px,2vw,20px);
+  min-height:110px;
+  background:linear-gradient(180deg,transparent 0%,rgba(6,6,30,0.5) 100%);
+}
+
+/* === NAV === */
+.nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(6,6,30,0.94);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,215,0,0.18);
+  padding:8px 10px;
+  display:flex;justify-content:center;align-items:center;gap:5px;flex-wrap:wrap;
+}
+.nb{
+  padding:7px 14px;background:rgba(255,215,0,0.07);
+  border:1px solid rgba(255,215,0,0.22);color:var(--gold);
+  border-radius:20px;font-size:clamp(10px,2.3vw,13px);
+  font-weight:600;transition:all 0.25s;white-space:nowrap;
+}
+.nb:hover,.nb.on{background:rgba(255,215,0,0.18);border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,0.25);transform:translateY(-1px);}
+.nb.adm{color:#ff9800;border-color:rgba(255,152,0,0.35);}
+.nb.adm:hover,.nb.adm.on{background:rgba(255,152,0,0.18);border-color:#ff9800;box-shadow:0 0 10px rgba(255,152,0,0.3);}
+.nav-user{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;padding-top:3px;width:100%;}
+.nav-user span{color:var(--gold);font-size:12px;}
+.logout-btn{padding:5px 12px;background:rgba(255,107,0,0.15);border:1px solid var(--saffron);color:var(--saffron);border-radius:12px;font-size:11px;}
+
+/* ===== PAGES ===== */
+.page{display:none;animation:pgIn 0.5s ease;position:relative;z-index:2;}
+.page.on{display:block;}
+@keyframes pgIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.sec{max-width:1100px;margin:0 auto;padding:22px 14px;}
+.sec-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(15px,3.5vw,24px);color:var(--gold);
+  text-align:center;margin:0 0 18px;
+  text-shadow:0 0 12px rgba(255,215,0,0.35);
+}
+.sec-title::before,.sec-title::after{content:' 🌸 ';}
+
+/* CARDS */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:22px;}
+.card{
+  background:var(--card);border:1px solid rgba(255,215,0,0.18);
+  border-radius:13px;padding:20px;transition:all 0.3s;backdrop-filter:blur(8px);
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,215,0,0.45);box-shadow:0 8px 24px rgba(255,215,0,0.1);}
+.card .ci{font-size:34px;margin-bottom:10px;}
+.card h3{color:var(--gold);font-size:15px;margin-bottom:7px;}
+.card p{color:rgba(255,255,255,0.72);font-size:13px;line-height:1.75;}
+
+/* ABOUT */
+.story-block{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,215,0,0.14);
+  border-radius:13px;padding:20px;margin-bottom:16px;line-height:1.85;
+}
+.story-block h3{color:var(--gold);font-size:17px;margin-bottom:11px;}
+.story-block p{color:rgba(255,255,255,0.8);font-size:14px;margin-bottom:10px;}
+.story-block .hl{color:var(--gold);font-weight:700;}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;}
+.tag{background:rgba(255,105,180,0.1);border:1px solid rgba(255,105,180,0.3);
+  border-radius:16px;padding:4px 11px;font-size:12px;color:var(--pink);}
+.food-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0;}
+.food-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,215,0,0.13);
+  border-radius:10px;padding:13px;text-align:center;transition:all 0.3s;}
+.food-card:hover{border-color:rgba(255,215,0,0.38);background:rgba(255,215,0,0.05);}
+.food-icon{font-size:28px;margin-bottom:6px;}
+.food-name{color:var(--gold);font-size:13px;font-weight:700;margin-bottom:4px;}
+.food-desc{color:rgba(255,255,255,0.6);font-size:11px;line-height:1.5;}
+
+/* GAMES */
+.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;padding:0 14px 22px;max-width:1100px;margin:0 auto;}
+.game-card{
+  background:var(--card);border:1px solid rgba(255,215,0,0.18);
+  border-radius:13px;padding:20px 14px;text-align:center;
+  transition:all 0.32s;backdrop-filter:blur(8px);position:relative;overflow:hidden;
+}
+.game-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,215,0,0.07),transparent 70%);opacity:0;transition:opacity 0.3s;}
+.game-card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 12px 30px rgba(255,215,0,0.15);}
+.game-card:hover::before{opacity:1;}
+.g-icon{font-size:42px;margin-bottom:9px;display:block;}
+.g-title{color:var(--gold);font-size:14px;font-weight:700;margin-bottom:5px;}
+.g-desc{color:rgba(255,255,255,0.58);font-size:11px;margin-bottom:10px;line-height:1.5;}
+.g-score{color:var(--pink);font-size:11px;margin-bottom:10px;font-weight:600;}
+.play-btn{
+  padding:7px 16px;background:linear-gradient(135deg,var(--saffron),var(--dgold));
+  border:none;border-radius:16px;color:#1a0800;font-weight:700;font-size:11px;
+  transition:all 0.25s;
+}
+.play-btn:hover{transform:scale(1.07);box-shadow:0 4px 12px rgba(255,107,0,0.4);}
+
+/* GAME MODAL */
+.modal-bg{
+  display:none;position:fixed;inset:0;background:rgba(0,0,15,0.93);z-index:600;
+  overflow-y:auto;padding:12px;align-items:flex-start;justify-content:center;
+}
+.modal-bg.on{display:flex;}
+.modal-box{
+  background:rgba(8,8,35,0.98);border:1px solid rgba(255,215,0,0.32);
+  border-radius:18px;padding:22px;width:100%;max-width:680px;margin:auto;
+  box-shadow:0 0 50px rgba(255,215,0,0.13);
+}
+.modal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+.modal-title{font-family:'Cinzel Decorative',serif;font-size:17px;color:var(--gold);}
+.modal-close{background:rgba(255,107,0,0.14);border:1px solid var(--saffron);color:var(--saffron);border-radius:16px;padding:5px 13px;font-size:12px;}
+.game-area{min-height:360px;}
+.lvl-badge{display:inline-block;padding:3px 11px;background:rgba(255,215,0,0.1);border:1px solid var(--gold);border-radius:9px;color:var(--gold);font-size:11px;margin-bottom:10px;}
+.sc-disp{color:var(--pink);font-size:13px;margin-bottom:10px;text-align:right;font-weight:600;}
+
+/* Memory */
+.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-width:360px;margin:0 auto;}
+.mc{aspect-ratio:1;background:rgba(255,215,0,0.07);border:1px solid rgba(255,215,0,0.22);
+  border-radius:9px;display:flex;align-items:center;justify-content:center;
+  font-size:26px;cursor:pointer;transition:all 0.22s;user-select:none;}
+.mc.fl{background:rgba(255,215,0,0.16);border-color:var(--gold);box-shadow:0 0 8px rgba(255,215,0,0.3);}
+.mc.dn{background:rgba(78,205,196,0.15);border-color:#4ECDC4;}
+.mc .mb{font-size:20px;}.mc .mf{display:none;font-size:26px;}
+.mc.fl .mf,.mc.dn .mf{display:block;}.mc.fl .mb,.mc.dn .mb{display:none;}
+
+/* Quiz */
+.qq{font-size:16px;color:var(--white);margin-bottom:16px;line-height:1.65;}
+.qopts{display:grid;gap:8px;}
+.qo{padding:10px 15px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,215,0,0.18);
+  border-radius:9px;cursor:pointer;transition:all 0.22s;color:var(--white);font-size:13px;text-align:left;}
+.qo:hover{background:rgba(255,215,0,0.1);border-color:rgba(255,215,0,0.45);}
+.qo.ok{background:rgba(0,200,80,0.18);border-color:#00C850;color:#00ff88;}
+.qo.no{background:rgba(255,60,60,0.18);border-color:#ff3c3c;}
+
+/* Word */
+.w-disp{font-size:clamp(20px,4.5vw,32px);letter-spacing:7px;color:var(--gold);margin:14px 0;min-height:44px;font-weight:700;text-align:center;}
+.w-clue{color:rgba(255,255,255,0.62);font-size:13px;margin-bottom:10px;text-align:center;}
+.lives-row{display:flex;gap:4px;justify-content:center;margin:8px 0;font-size:16px;}
+.wrong-list{color:rgba(255,100,100,0.75);font-size:12px;text-align:center;min-height:18px;margin:4px 0;}
+.alpha-grid{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:10px;}
+.ab{width:30px;height:30px;background:rgba(255,215,0,0.07);border:1px solid rgba(255,215,0,0.22);
+  color:var(--gold);border-radius:5px;cursor:pointer;font-size:11px;font-weight:700;transition:all 0.18s;}
+.ab:disabled{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06);color:rgba(255,255,255,0.18);cursor:default;}
+
+/* Tiles */
+.tiles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-width:300px;margin:10px auto;}
+.tile{aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-size:clamp(20px,4vw,28px);background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,215,0,0.18);border-radius:9px;cursor:pointer;
+  transition:all 0.15s;user-select:none;}
+.tile:hover{background:rgba(255,215,0,0.15);transform:scale(0.96);}
+
+/* Catch */
+.catch-arena{position:relative;width:100%;height:300px;background:rgba(0,0,0,0.22);
+  border-radius:13px;overflow:hidden;cursor:none;border:1px solid rgba(255,215,0,0.13);}
+.fall-el{position:absolute;font-size:24px;cursor:pointer;user-select:none;animation:fall linear;}
+@keyframes fall{from{top:-50px;}to{top:110%;}}
+.catcher-el{position:absolute;bottom:10px;font-size:clamp(28px,4vw,40px);
+  transform:translateX(-50%);transition:left 0.06s;pointer-events:none;
+  filter:drop-shadow(0 0 6px rgba(255,215,0,0.5));}
+
+/* SCOREBOARD */
+.score-tbl-wrap{overflow-x:auto;}
+.score-tbl{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,215,0,0.13);border-radius:13px;overflow:hidden;}
+.score-tbl th{padding:12px 11px;background:rgba(255,215,0,0.1);color:var(--gold);
+  font-size:12px;text-align:left;border-bottom:1px solid rgba(255,215,0,0.13);white-space:nowrap;}
+.score-tbl td{padding:10px 11px;border-bottom:1px solid rgba(255,255,255,0.04);
+  color:rgba(255,255,255,0.8);font-size:12px;}
+.score-tbl tr:last-child td{border-bottom:none;}
+.score-tbl tr:hover td{background:rgba(255,215,0,0.04);}
+.rb{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-weight:700;font-size:11px;}
+.r1{background:var(--gold);color:#1a0800;}.r2{background:#C0C0C0;color:#111;}.r3{background:#CD7F32;color:#fff;}.rn{background:rgba(255,255,255,0.1);color:var(--white);}
+.prize-banner{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,107,0,0.06));
+  border:1px solid rgba(255,215,0,0.22);border-radius:12px;padding:16px;margin-bottom:18px;text-align:center;}
+.prize-title{color:var(--gold);font-size:15px;font-weight:700;margin-bottom:6px;}
+.prize-desc{color:rgba(255,255,255,0.65);font-size:12px;line-height:1.7;}
+
+/* ADMIN */
+.adm-wrap{max-width:960px;margin:0 auto;padding:18px 14px;}
+.adm-title{font-family:'Cinzel Decorative',serif;font-size:18px;color:#ff9800;margin-bottom:18px;text-align:center;}
+.ctrl-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,152,0,0.28);
+  border-radius:13px;padding:22px;margin-bottom:18px;text-align:center;}
+.site-badge{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
+  border-radius:18px;font-size:14px;font-weight:700;margin-bottom:12px;}
+.site-badge.open{background:rgba(76,175,80,0.15);border:1px solid #4CAF50;color:#4CAF50;}
+.site-badge.closed{background:rgba(244,67,54,0.15);border:1px solid #f44336;color:#f44336;}
+.ctrl-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.cbtn{padding:10px 24px;border-radius:20px;border:none;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.25s;}
+.cbtn.go{background:#4CAF50;color:#fff;}.cbtn.go:hover{background:#43a047;transform:scale(1.04);}
+.cbtn.st{background:#f44336;color:#fff;}.cbtn.st:hover{background:#e53935;transform:scale(1.04);}
+.astat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:18px;}
+.astat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,152,0,0.14);border-radius:10px;padding:14px;text-align:center;}
+.astat-n{font-size:30px;font-weight:700;color:var(--gold);}
+.astat-l{color:rgba(255,255,255,0.5);font-size:11px;margin-top:3px;}
+.asec{color:#ff9800;font-size:14px;font-weight:700;margin:16px 0 10px;}
+.adm-tbl{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,152,0,0.1);border-radius:10px;overflow:hidden;}
+.adm-tbl th{padding:10px 12px;background:rgba(255,152,0,0.08);color:#ff9800;font-size:11px;text-align:left;border-bottom:1px solid rgba(255,152,0,0.1);}
+.adm-tbl td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.03);color:rgba(255,255,255,0.76);font-size:11px;}
+.del-btn{background:rgba(244,67,54,0.13);border:1px solid #f44336;color:#f44336;border-radius:6px;padding:3px 8px;font-size:10px;}
+.score-bar{height:6px;background:rgba(255,255,255,0.05);border-radius:3px;margin-top:3px;overflow:hidden;}
+.score-fill{height:100%;background:linear-gradient(90deg,var(--saffron),var(--gold));border-radius:3px;transition:width 0.8s ease;}
+
+/* NOTIFICATION */
+.notif{
+  position:fixed;bottom:16px;right:14px;
+  background:rgba(10,10,38,0.97);border:1px solid rgba(255,215,0,0.32);
+  border-radius:10px;padding:11px 16px;color:var(--gold);
+  font-size:12px;z-index:8000;
+  transform:translateX(130%);transition:transform 0.38s ease;
+  max-width:240px;text-align:center;
+  box-shadow:0 4px 18px rgba(255,215,0,0.1);
+}
+.notif.show{transform:translateX(0);}
+
+/* FOOTER */
+footer{text-align:center;padding:20px 15px;border-top:1px solid rgba(255,215,0,0.08);
+  color:rgba(255,255,255,0.3);font-size:11px;margin-top:28px;position:relative;z-index:2;}
+footer span{color:var(--pink);}
+
+/* MOBILE */
+@media(max-width:480px){
+  .games-grid{grid-template-columns:repeat(2,1fr);}
+  .mem-grid{gap:5px;}
+  .kudu-strip{gap:3px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NOTIFICATION -->
+<div class="notif" id="notif"></div>
+
+<!-- BROADCAST BAR -->
+<div id="broadcastBar"></div>
+
+<!-- CLOSED OVERLAY -->
+<div id="closedOverlay">
+  <div class="closed-lotus">🪷</div>
+  <div class="closed-title">දාන්සල තාවකාලිකව වසා ඇත</div>
+  <div class="closed-msg">
+    Digital Wesak Dānsala දැනට වසා ඇත.<br>
+    ශ්‍රී සද්ධර්ම ජය! ටිකෙස්ස ආපසු එන්න. 🙏<br>
+    <em style="font-size:12px;color:rgba(255,255,255,0.35)">Temporarily closed. Please visit again soon.</em>
+  </div>
+</div>
+
+<!-- GAME MODAL -->
+<div class="modal-bg" id="gModal">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-title" id="gTitle">ක්‍රීඩාව</div>
+      <button class="modal-close" onclick="closeGame()">✕ වසන්න</button>
+    </div>
+    <div class="game-area" id="gArea"></div>
+  </div>
+</div>
+
+<!-- ===================== LOGIN PAGE ===================== -->
+<div id="loginPage">
+  <!-- Animated background: sky, stars, kudu, lotus SVG scene -->
+  <div class="lbg">
+    <svg id="loginBgSvg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="skygrd" cx="50%" cy="30%"><stop offset="0%" stop-color="#1a1a6e"/><stop offset="100%" stop-color="#06061e"/></radialGradient>
+        <radialGradient id="moonGrd" cx="50%" cy="50%"><stop offset="0%" stop-color="#FFFDE7"/><stop offset="100%" stop-color="#FFD700"/></radialGradient>
+        <radialGradient id="waterGrd" cx="50%" cy="0%"><stop offset="0%" stop-color="#1a3a5e"/><stop offset="100%" stop-color="#06061e"/></radialGradient>
+        <!-- Lotus petal gradient -->
+        <linearGradient id="petal1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FF69B4"/><stop offset="100%" stop-color="#FF1493"/>
+        </linearGradient>
+        <linearGradient id="petal2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FFB3D9"/><stop offset="100%" stop-color="#FF69B4"/>
+        </linearGradient>
+        <linearGradient id="petal3" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FF1493"/><stop offset="100%" stop-color="#C2185B"/>
+        </linearGradient>
+        <!-- Lantern gradients -->
+        <linearGradient id="lg1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e3ea0"/><stop offset="100%" stop-color="#0a1f60"/></linearGradient>
+        <linearGradient id="lg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#d4a017"/><stop offset="100%" stop-color="#8a6a0a"/></linearGradient>
+        <linearGradient id="lg3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#c0241a"/><stop offset="100%" stop-color="#7a0f0c"/></linearGradient>
+        <linearGradient id="lg4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="100%" stop-color="#aaaaaa"/></linearGradient>
+        <linearGradient id="lg5" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#c06010"/><stop offset="100%" stop-color="#7a3a08"/></linearGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="softglow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <!-- Sky -->
+      <rect width="800" height="600" fill="url(#skygrd)"/>
+      <!-- Moon -->
+      <circle cx="680" cy="80" r="45" fill="url(#moonGrd)" filter="url(#softglow)" opacity="0.9"/>
+      <circle cx="680" cy="80" r="50" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.3"/>
+      <!-- Stars -->
+      <g fill="white" opacity="0.8">
+        <circle cx="50" cy="40" r="1.5"/><circle cx="120" cy="20" r="1"/><circle cx="200" cy="60" r="2"/>
+        <circle cx="300" cy="30" r="1.5"/><circle cx="420" cy="15" r="1"/><circle cx="500" cy="50" r="2"/>
+        <circle cx="600" cy="25" r="1.5"/><circle cx="150" cy="90" r="1"/><circle cx="350" cy="70" r="1.5"/>
+        <circle cx="450" cy="45" r="1"/><circle cx="550" cy="80" r="2"/><circle cx="720" cy="130" r="1"/>
+        <circle cx="80" cy="130" r="1.5"/><circle cx="250" cy="110" r="1"/><circle cx="700" cy="55" r="1.5"/>
+        <circle cx="760" cy="100" r="1"/><circle cx="30" cy="75" r="2"/><circle cx="640" cy="110" r="1.5"/>
+      </g>
+      <!-- Lantern string top -->
+      <line x1="0" y1="15" x2="800" y2="15" stroke="rgba(180,140,0,0.4)" stroke-width="1"/>
+      <!-- 5 Lanterns (matching real ones: blue, yellow, red, white, orange) -->
+      <!-- Lantern 1: Blue -->
+      <g transform="translate(80,15)">
+        <line x1="0" y1="0" x2="0" y2="18" stroke="rgba(180,140,0,0.5)" stroke-width="1"/>
+        <rect x="-18" y="18" width="36" height="50" rx="4" fill="url(#lg1)"/>
+        <polygon points="-14,18 0,22 14,18 18,26 0,30 -18,26" fill="rgba(255,215,0,0.2)"/>
+        <circle cx="0" cy="32" r="10" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <line x1="0" y1="22" x2="0" y2="42" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+        <line x1="-10" y1="32" x2="10" y2="32" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+        <circle cx="0" cy="68" r="3" fill="#FFD700" filter="url(#glow)"/>
+        <!-- Fringe -->
+        <g stroke="#1a3090" stroke-width="1.2" opacity="0.8">
+          <line x1="-16" y1="68" x2="-16" y2="100"/><line x1="-12" y1="68" x2="-12" y2="104"/>
+          <line x1="-8" y1="68" x2="-8" y2="98"/><line x1="-4" y1="68" x2="-4" y2="106"/>
+          <line x1="0" y1="68" x2="0" y2="102"/><line x1="4" y1="68" x2="4" y2="100"/>
+          <line x1="8" y1="68" x2="8" y2="105"/><line x1="12" y1="68" x2="12" y2="99"/>
+          <line x1="16" y1="68" x2="16" y2="103"/>
+        </g>
+        <circle cx="0" cy="68" r="4" fill="#4488ff" opacity="0.6" filter="url(#glow)"/>
+      </g>
+      <!-- Lantern 2: Yellow -->
+      <g transform="translate(210,15)">
+        <line x1="0" y1="0" x2="0" y2="18" stroke="rgba(180,140,0,0.5)" stroke-width="1"/>
+        <rect x="-18" y="18" width="36" height="50" rx="4" fill="url(#lg2)"/>
+        <polygon points="-14,18 0,22 14,18 18,26 0,30 -18,26" fill="rgba(255,215,0,0.25)"/>
+        <circle cx="0" cy="32" r="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+        <line x1="0" y1="22" x2="0" y2="42" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <line x1="-10" y1="32" x2="10" y2="32" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <circle cx="0" cy="68" r="3" fill="#FFD700" filter="url(#glow)"/>
+        <g stroke="#8a6a0a" stroke-width="1.2" opacity="0.8">
+          <line x1="-16" y1="68" x2="-16" y2="103"/><line x1="-12" y1="68" x2="-12" y2="100"/>
+          <line x1="-8" y1="68" x2="-8" y2="106"/><line x1="-4" y1="68" x2="-4" y2="99"/>
+          <line x1="0" y1="68" x2="0" y2="104"/><line x1="4" y1="68" x2="4" y2="101"/>
+          <line x1="8" y1="68" x2="8" y2="100"/><line x1="12" y1="68" x2="12" y2="105"/>
+          <line x1="16" y1="68" x2="16" y2="102"/>
+        </g>
+        <circle cx="0" cy="68" r="4" fill="#FFD700" opacity="0.7" filter="url(#glow)"/>
+      </g>
+      <!-- Lantern 3: Red (center big) -->
+      <g transform="translate(370,12)">
+        <line x1="0" y1="0" x2="0" y2="20" stroke="rgba(180,140,0,0.5)" stroke-width="1"/>
+        <rect x="-22" y="20" width="44" height="60" rx="4" fill="url(#lg3)"/>
+        <polygon points="-18,20 0,25 18,20 22,30 0,36 -22,30" fill="rgba(255,100,0,0.2)"/>
+        <circle cx="0" cy="38" r="12" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+        <line x1="0" y1="26" x2="0" y2="50" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+        <line x1="-12" y1="38" x2="12" y2="38" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+        <circle cx="0" cy="80" r="4" fill="#FFD700" filter="url(#glow)"/>
+        <g stroke="#7a0f0c" stroke-width="1.3" opacity="0.8">
+          <line x1="-20" y1="80" x2="-20" y2="118"/><line x1="-16" y1="80" x2="-16" y2="122"/>
+          <line x1="-12" y1="80" x2="-12" y2="116"/><line x1="-8" y1="80" x2="-8" y2="124"/>
+          <line x1="-4" y1="80" x2="-4" y2="119"/><line x1="0" y1="80" x2="0" y2="120"/>
+          <line x1="4" y1="80" x2="4" y2="117"/><line x1="8" y1="80" x2="8" y2="123"/>
+          <line x1="12" y1="80" x2="12" y2="115"/><line x1="16" y1="80" x2="16" y2="121"/>
+          <line x1="20" y1="80" x2="20" y2="119"/>
+        </g>
+        <circle cx="0" cy="80" r="5" fill="#ff4444" opacity="0.7" filter="url(#glow)"/>
+      </g>
+      <!-- Lantern 4: White -->
+      <g transform="translate(530,15)">
+        <line x1="0" y1="0" x2="0" y2="18" stroke="rgba(180,140,0,0.5)" stroke-width="1"/>
+        <rect x="-18" y="18" width="36" height="50" rx="4" fill="url(#lg4)"/>
+        <polygon points="-14,18 0,22 14,18 18,26 0,30 -18,26" fill="rgba(255,255,255,0.15)"/>
+        <circle cx="0" cy="32" r="10" fill="none" stroke="rgba(100,100,100,0.5)" stroke-width="1.5"/>
+        <line x1="0" y1="22" x2="0" y2="42" stroke="rgba(100,100,100,0.5)" stroke-width="1"/>
+        <line x1="-10" y1="32" x2="10" y2="32" stroke="rgba(100,100,100,0.5)" stroke-width="1"/>
+        <circle cx="0" cy="68" r="3" fill="#fff" filter="url(#glow)"/>
+        <g stroke="#888" stroke-width="1.2" opacity="0.7">
+          <line x1="-16" y1="68" x2="-16" y2="100"/><line x1="-12" y1="68" x2="-12" y2="104"/>
+          <line x1="-8" y1="68" x2="-8" y2="98"/><line x1="-4" y1="68" x2="-4" y2="103"/>
+          <line x1="0" y1="68" x2="0" y2="101"/><line x1="4" y1="68" x2="4" y2="99"/>
+          <line x1="8" y1="68" x2="8" y2="105"/><line x1="12" y1="68" x2="12" y2="100"/>
+          <line x1="16" y1="68" x2="16" y2="102"/>
+        </g>
+        <circle cx="0" cy="68" r="4" fill="#fff" opacity="0.5" filter="url(#glow)"/>
+      </g>
+      <!-- Lantern 5: Orange -->
+      <g transform="translate(690,15)">
+        <line x1="0" y1="0" x2="0" y2="18" stroke="rgba(180,140,0,0.5)" stroke-width="1"/>
+        <rect x="-18" y="18" width="36" height="50" rx="4" fill="url(#lg5)"/>
+        <polygon points="-14,18 0,22 14,18 18,26 0,30 -18,26" fill="rgba(255,150,0,0.2)"/>
+        <circle cx="0" cy="32" r="10" fill="none" stroke="rgba(255,200,100,0.5)" stroke-width="1.5"/>
+        <line x1="0" y1="22" x2="0" y2="42" stroke="rgba(255,200,100,0.5)" stroke-width="1"/>
+        <line x1="-10" y1="32" x2="10" y2="32" stroke="rgba(255,200,100,0.5)" stroke-width="1"/>
+        <circle cx="0" cy="68" r="3" fill="#ff9800" filter="url(#glow)"/>
+        <g stroke="#7a3a08" stroke-width="1.2" opacity="0.8">
+          <line x1="-16" y1="68" x2="-16" y2="103"/><line x1="-12" y1="68" x2="-12" y2="99"/>
+          <line x1="-8" y1="68" x2="-8" y2="105"/><line x1="-4" y1="68" x2="-4" y2="101"/>
+          <line x1="0" y1="68" x2="0" y2="100"/><line x1="4" y1="68" x2="4" y2="104"/>
+          <line x1="8" y1="68" x2="8" y2="98"/><line x1="12" y1="68" x2="12" y2="102"/>
+          <line x1="16" y1="68" x2="16" y2="105"/>
+        </g>
+        <circle cx="0" cy="68" r="4" fill="#ff9800" opacity="0.65" filter="url(#glow)"/>
+      </g>
+      <!-- Water/ground -->
+      <rect x="0" y="430" width="800" height="170" fill="url(#waterGrd)" opacity="0.8"/>
+      <!-- Water reflection ripples -->
+      <ellipse cx="400" cy="445" rx="300" ry="8" fill="rgba(100,150,255,0.08)"/>
+      <ellipse cx="400" cy="460" rx="250" ry="6" fill="rgba(100,150,255,0.06)"/>
+      <!-- Lotus flowers in water (large, generated) -->
+      <!-- Lotus 1 - Left large -->
+      <g transform="translate(100,430)">
+        <ellipse cx="0" cy="8" rx="40" ry="6" fill="#1a5c20" opacity="0.7"/>
+        <g>
+          <ellipse cx="0" cy="-5" rx="14" ry="32" fill="url(#petal1)" transform="rotate(-60)" opacity="0.9"/>
+          <ellipse cx="0" cy="-5" rx="14" ry="32" fill="url(#petal2)" transform="rotate(-30)" opacity="0.88"/>
+          <ellipse cx="0" cy="-5" rx="14" ry="32" fill="url(#petal1)" transform="rotate(0)" opacity="0.9"/>
+          <ellipse cx="0" cy="-5" rx="14" ry="32" fill="url(#petal2)" transform="rotate(30)" opacity="0.88"/>
+          <ellipse cx="0" cy="-5" rx="14" ry="32" fill="url(#petal1)" transform="rotate(60)" opacity="0.9"/>
+          <ellipse cx="0" cy="-5" rx="14" ry="32" fill="url(#petal3)" transform="rotate(90)" opacity="0.85"/>
+          <ellipse cx="0" cy="-5" rx="14" ry="32" fill="url(#petal1)" transform="rotate(120)" opacity="0.9"/>
+          <ellipse cx="0" cy="-5" rx="14" ry="32" fill="url(#petal2)" transform="rotate(150)" opacity="0.88"/>
+        </g>
+        <circle cx="0" cy="0" r="10" fill="#FFD700"/>
+        <circle cx="0" cy="0" r="6" fill="#FF8F00"/>
+        <circle cx="0" cy="0" r="10" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.5" filter="url(#glow)"/>
+      </g>
+      <!-- Lotus 2 - Center -->
+      <g transform="translate(400,440)">
+        <ellipse cx="0" cy="10" rx="50" ry="8" fill="#1a5c20" opacity="0.7"/>
+        <g>
+          <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal1)" transform="rotate(-60)" opacity="0.92"/>
+          <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal2)" transform="rotate(-30)" opacity="0.88"/>
+          <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal1)" transform="rotate(0)" opacity="0.92"/>
+          <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal2)" transform="rotate(30)" opacity="0.88"/>
+          <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal3)" transform="rotate(60)" opacity="0.85"/>
+          <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal1)" transform="rotate(90)" opacity="0.92"/>
+          <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal2)" transform="rotate(120)" opacity="0.88"/>
+          <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal3)" transform="rotate(150)" opacity="0.85"/>
+        </g>
+        <circle cx="0" cy="0" r="12" fill="#FFD700"/>
+        <circle cx="0" cy="0" r="8" fill="#FF8F00"/>
+        <circle cx="0" cy="0" r="14" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.5" filter="url(#glow)"/>
+      </g>
+      <!-- Lotus 3 - Right -->
+      <g transform="translate(700,435)">
+        <ellipse cx="0" cy="8" rx="38" ry="6" fill="#1a5c20" opacity="0.7"/>
+        <g>
+          <ellipse cx="0" cy="-5" rx="13" ry="30" fill="url(#petal2)" transform="rotate(-60)" opacity="0.9"/>
+          <ellipse cx="0" cy="-5" rx="13" ry="30" fill="url(#petal1)" transform="rotate(-30)" opacity="0.88"/>
+          <ellipse cx="0" cy="-5" rx="13" ry="30" fill="url(#petal2)" transform="rotate(0)" opacity="0.9"/>
+          <ellipse cx="0" cy="-5" rx="13" ry="30" fill="url(#petal3)" transform="rotate(30)" opacity="0.85"/>
+          <ellipse cx="0" cy="-5" rx="13" ry="30" fill="url(#petal1)" transform="rotate(60)" opacity="0.9"/>
+          <ellipse cx="0" cy="-5" rx="13" ry="30" fill="url(#petal2)" transform="rotate(90)" opacity="0.88"/>
+          <ellipse cx="0" cy="-5" rx="13" ry="30" fill="url(#petal1)" transform="rotate(120)" opacity="0.9"/>
+          <ellipse cx="0" cy="-5" rx="13" ry="30" fill="url(#petal3)" transform="rotate(150)" opacity="0.85"/>
+        </g>
+        <circle cx="0" cy="0" r="9" fill="#FFD700"/>
+        <circle cx="0" cy="0" r="5" fill="#FF8F00"/>
+      </g>
+      <!-- Small lotus buds -->
+      <g transform="translate(250,450)">
+        <ellipse cx="0" cy="5" rx="20" ry="4" fill="#1a5c20" opacity="0.6"/>
+        <ellipse cx="0" cy="-10" rx="8" ry="18" fill="url(#petal2)" opacity="0.85"/>
+        <ellipse cx="0" cy="-10" rx="8" ry="18" fill="url(#petal3)" transform="rotate(45)" opacity="0.8"/>
+        <ellipse cx="0" cy="-10" rx="8" ry="18" fill="url(#petal1)" transform="rotate(90)" opacity="0.85"/>
+        <ellipse cx="0" cy="-10" rx="8" ry="18" fill="url(#petal2)" transform="rotate(135)" opacity="0.8"/>
+        <circle cx="0" cy="0" r="5" fill="#FFD700"/>
+      </g>
+      <g transform="translate(570,452)">
+        <ellipse cx="0" cy="5" rx="18" ry="4" fill="#1a5c20" opacity="0.6"/>
+        <ellipse cx="0" cy="-8" rx="7" ry="16" fill="url(#petal1)" opacity="0.85"/>
+        <ellipse cx="0" cy="-8" rx="7" ry="16" fill="url(#petal2)" transform="rotate(60)" opacity="0.8"/>
+        <ellipse cx="0" cy="-8" rx="7" ry="16" fill="url(#petal3)" transform="rotate(120)" opacity="0.85"/>
+        <circle cx="0" cy="0" r="4" fill="#FFD700"/>
+      </g>
+      <!-- Lily pads -->
+      <ellipse cx="180" cy="455" rx="28" ry="8" fill="#1a5c20" opacity="0.5"/>
+      <ellipse cx="320" cy="460" rx="22" ry="6" fill="#1a5c20" opacity="0.4"/>
+      <ellipse cx="500" cy="458" rx="25" ry="7" fill="#1a5c20" opacity="0.5"/>
+      <ellipse cx="620" cy="456" rx="20" ry="6" fill="#1a5c20" opacity="0.4"/>
+      <!-- Reflection in water -->
+      <g opacity="0.2" transform="translate(400,470) scale(1,-0.3)">
+        <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal1)" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal2)" transform="rotate(60)"/>
+        <ellipse cx="0" cy="-8" rx="16" ry="38" fill="url(#petal1)" transform="rotate(120)"/>
+        <circle cx="0" cy="0" r="12" fill="#FFD700"/>
+      </g>
+      <!-- Fireflies / particles -->
+      <circle cx="150" cy="380" r="2" fill="#FFD700" opacity="0.7" filter="url(#glow)"/>
+      <circle cx="300" cy="350" r="1.5" fill="#FFD700" opacity="0.6" filter="url(#glow)"/>
+      <circle cx="500" cy="370" r="2" fill="#FFD700" opacity="0.65" filter="url(#glow)"/>
+      <circle cx="640" cy="360" r="1.5" fill="#FFD700" opacity="0.7" filter="url(#glow)"/>
+    </svg>
+    <div class="lbg-overlay"></div>
+    <!-- Animated floating particles over login bg -->
+    <canvas id="loginParticles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+  </div>
+
+  <!-- Kudu row above card -->
+  <div class="login-kudu-row" style="position:relative;z-index:1;margin-bottom:8px;" id="loginKuduRow"></div>
+
+  <div class="login-card">
+    <div class="login-title">🪔 වෙසක් දාන්සල</div>
+    <div class="login-sub">ඇතුළු වීමට ලොගින් කරන්න · Login to enter</div>
+
+    <div id="lForm">
+      <div class="form-group">
+        <label class="form-label">📧 ඊ-මේල් හෝ 📱 දුරකථන</label>
+        <input class="form-input" id="li" placeholder="email@example.com හෝ 07X...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">🔐 මුරපදය</label>
+        <input class="form-input" type="password" id="lp" placeholder="ඔබේ මුරපදය">
+      </div>
+      <button class="form-submit" onclick="doLogin()">🌸 ඇතුළු වන්න</button>
+      <div class="form-err" id="lerr"></div>
+      <div class="form-toggle">ගිණුම නැතිද? <a onclick="swf(1)">ලියාපදිංචි වන්න</a></div>
+    </div>
+
+    <div id="rForm" style="display:none">
+      <div class="form-group">
+        <label class="form-label">👤 සම්පූර්ණ නම</label>
+        <input class="form-input" id="rn" placeholder="ඔබේ සම්පූර්ණ නම">
+      </div>
+      <div class="form-group">
+        <label class="form-label">📱 දුරකථන</label>
+        <input class="form-input" id="rph" placeholder="07X XXX XXXX" type="tel">
+      </div>
+      <div class="form-group">
+        <label class="form-label">📧 ඊ-මේල්</label>
+        <input class="form-input" id="re" placeholder="email@example.com" type="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">🔐 මුරපදය</label>
+        <input class="form-input" id="rp" placeholder="ශක්තිමත් මුරපදයක්" type="password">
+      </div>
+      <button class="form-submit" onclick="doRegister()">🌺 ගිණුම සාදන්න</button>
+      <div class="form-err" id="rerr"></div>
+      <div class="form-toggle">ගිණුමක් ඇතිද? <a onclick="swf(0)">ලොගින් වන්න</a></div>
+    </div>
+  </div>
+</div><!-- /loginPage -->
+
+<!-- ===================== MAIN SITE ===================== -->
+<div id="mainSite">
+<canvas id="particleCanvas"></canvas>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-sky"></div>
+  <div class="hero-stars" id="heroStars"></div>
+
+  <!-- Kudu strip (JS built) -->
+  <div class="kudu-strip" id="kuduStrip"></div>
+
+  <div class="hero-content">
+    <div class="hero-flame">🪔</div>
+    <div class="hero-title">වෙසක් දාන්සල</div>
+    <div class="hero-sub">Digital Wesak Dānsala 2026</div>
+    <div class="hero-year">ශ්‍රී සද්ධර්ම ජය · 2570 ශ්‍රී බෝ</div>
+  </div>
+
+  <!-- Lotus scene (JS built) -->
+  <div class="lotus-scene" id="lotusScene"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <button class="nb on" onclick="goP('home',this)">🏠 ගෙදර</button>
+  <button class="nb" onclick="goP('about',this)">📖 වෙසක් ගැන</button>
+  <button class="nb" onclick="goP('games',this)">🎮 ක්‍රීඩා</button>
+  <button class="nb" onclick="goP('scores',this)">🏆 ලකුණු</button>
+  <button class="nb adm" id="admBtn" style="display:none" onclick="goP('admin',this)">⚙️ Admin</button>
+  <div class="nav-user" id="navUser">
+    <span id="navGreet"></span>
+    <button class="logout-btn" onclick="doLogout()">ලොගවෙලා</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page on" id="pg-home">
+  <div class="sec">
+    <div class="prize-banner">
+      <div class="prize-title">🏆 ශ්‍රේෂ්ඨ ජයග්‍රාහකයන් 5 දෙනාට විශේෂ ත්‍යාගය! 🎁</div>
+      <div class="prize-desc">වැඩිම ලකුණු ගත් ශ්‍රේෂ්ඨ ක්‍රීඩකයන් 5 දෙනාට දහම් ත්‍යාගයක් ලැබේ! ක්‍රීඩා කර ලකුණු ගන්න! 🌸</div>
+    </div>
+    <div class="sec-title">වෙසක් ගැන</div>
+    <div class="card-grid">
+      <div class="card"><div class="ci">☸️</div><h3>ත්‍රිවිධ ජය දිනය</h3><p>ගෞතම බුදුරාජාණන් වහන්සේ ජනනය, ප්‍රබෝධය, සහ පිරිනිවාන - ශ්‍රේෂ්ඨ ත්‍රිවිධ සිදුවීම් එකම දිනයක!</p></div>
+      <div class="card"><div class="ci">🪔</div><h3>වෙසක් දාන්සල</h3><p>නොමිලේ ආහාර, ජලය, සත්කාර - දානය, ශීලය, භාවනා ත්‍රිවිධ ශ්‍රේෂ්ඨ ගුණය ශ්‍රී ලංකාව පුරා.</p></div>
+      <div class="card"><div class="ci">🌺</div><h3>නෙළුම් මල</h3><p>නෙළුම් (Lotus) බෞද්ධ සංස්කෘතියේ ශ්‍රේෂ්ඨ සංකේතය - මඩ ජලයෙන් නැඟී ශ්‍රේෂ්ඨ ශ්‍රී ශුද්ධ රූ ලාවණ්‍ය.</p></div>
+      <div class="card"><div class="ci">🏮</div><h3>වෙසක් කූඩු</h3><p>ශ්‍රී ලාංකිකයෝ රාත්‍රී ආලෝකවලින්, ලස්සන කූඩු, ලාම්පු, වර්ණ ආලෝකවලින් ගෙවල් සරසති.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="pg-about">
+  <div class="sec">
+    <div class="sec-title">වෙසක් කතාව</div>
+    <div class="story-block">
+      <h3>☸️ ශ්‍රී ත්‍රිවිධ ජය දිනය</h3>
+      <p>වෙසක් (Vesak) යනු ලෝකයේ සෑම බෞද්ධ ජනතාවකම ශ්‍රී සද්ධර්ම ජය දිනයයි. ශ්‍රී ලංකාව, ඉන්දියාව, ටිබෙට, ජපානය, ශ්‍රී ලාංකිකයෝ, ලොව පුරා බෞද්ධ ජනතාව මෙදිනය ශ්‍රේෂ්ඨ ශ්‍රී ලෙස සමරති.</p>
+      <p><span class="hl">🌟 ජනනය (Birth):</span> රාජකුමාර සිද්ධාර්ථ ගෞතම, <strong>ලුම්බිනිවල</strong> (දැනට නේපාලය) ක්‍රි.පූ. 623 දී උපත ලද. ශාක්‍ය රාජ් කුලයේ රාජකුමාරයෙකි.</p>
+      <p><span class="hl">🌟 ප්‍රබෝධය (Enlightenment):</span> <strong>ගයාවල</strong> (ඉන්දියාව) අශ්වත්ථ ගස (බෝ ගස) යටදී දිගු ධ්‍යාන සමාධියෙන් <strong>සම්‍යක් සම්බෝධිය</strong> ලද - ක්‍රි.පූ. 588.</p>
+      <p><span class="hl">🌟 පිරිනිවාන (Parinirvana):</span> <strong>කුශිනාරාවල</strong> (ඉන්දියාව) සාල ද්‍රුම වනාන්තරයේ, 80 හැවිරිදි ජීවිතයෙන් - ක්‍රි.පූ. 543.</p>
+      <div class="tags">
+        <div class="tag">🪔 ලාම්පු දල්වනු</div><div class="tag">🙏 පූජා</div>
+        <div class="tag">🌺 නෙළුම් දානය</div><div class="tag">📿 ගාථා</div>
+        <div class="tag">🕊️ සිල් රකිනු</div><div class="tag">☸️ ධර්ම චිත්තය</div>
+      </div>
+    </div>
+    <div class="story-block">
+      <h3>🏮 ශ්‍රී ලංකාවේ වෙසක්</h3>
+      <p>ශ්‍රී ලංකාවේ වෙසක් දිනය <strong>ජාතික නිවාඩු දිනයකි</strong>. ගෙවල්, ශාලාවල, ශ්‍රී බෝ ස්ථාන, විහාරස්ථාන, ජාතික ගොඩනැගිලිවල වෙසක් කූඩු, ලාම්පු, වර්ණ ආලෝකවලින් සරසනු ලැබේ.</p>
+      <p>ශ්‍රී ලාංකිකයෝ <strong>දාන, ශීල, භාවනා</strong> ත්‍රිවිධ ශ්‍රේෂ්ඨ ගුණ ශ්‍රේෂ්ඨ ශ්‍රී. නිදොස් ජීවිතයකට ශ්‍රේෂ්ඨ ශ්‍රී ශ්‍රේෂ්ඨ ශ්‍රී.</p>
+      <p>ශ්‍රී ලංකාවේ <strong>වෙසක් කූඩු</strong> - ලී රාමුවලින්, වර්ණ කොළ, ආලෝක - ලොව ප්‍රසිද්ධ ශ්‍රී ලාංකිකයාගේ ශ්‍රේෂ්ඨ ශිල්ප කලාවකි.</p>
+    </div>
+    <div class="sec-title">වෙසක් ශ්‍රී ආහාර</div>
+    <div class="food-grid">
+      <div class="food-card"><div class="food-icon">🍚</div><div class="food-name">කිරිබත්</div><div class="food-desc">Milk rice - coconut milk rice, ශ්‍රී ලාංකිකයන්ගේ ශ්‍රේෂ්ඨ ශ්‍රී ශ්‍රේෂ්ඨ.</div></div>
+      <div class="food-card"><div class="food-icon">🍮</div><div class="food-name">හලුවා</div><div class="food-desc">Traditional sweet - rice flour, treacle & coconut. ශ්‍රේෂ්ඨ ශ්‍රී දාන.</div></div>
+      <div class="food-card"><div class="food-icon">🥥</div><div class="food-name">තඹිලි</div><div class="food-desc">King coconut water - refreshing, free at dansala. ශ්‍රේෂ්ඨ ශ්‍රී.</div></div>
+      <div class="food-card"><div class="food-icon">🍵</div><div class="food-name">කිරිදිය/තේ</div><div class="food-desc">Milk tea served hot to all visitors free. ශ්‍රේෂ්ඨ ශ්‍රී ශ්‍රේෂ්ඨ.</div></div>
+      <div class="food-card"><div class="food-icon">🍛</div><div class="food-name">දාන ආහාර</div><div class="food-desc">Full rice meals offered free to everyone passing by. ශ්‍රේෂ්ඨ.</div></div>
+      <div class="food-card"><div class="food-icon">🌸</div><div class="food-name">නෙළුම් පූජා</div><div class="food-desc">Lotus & incense offered at temples as Buddhist devotion. ශ්‍රේෂ්ඨ.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- GAMES -->
+<div class="page" id="pg-games">
+  <div class="sec"><div class="sec-title">වෙසක් ක්‍රීඩා</div></div>
+  <div class="games-grid">
+    <div class="game-card"><span class="g-icon">🧩</span><div class="g-title">වෙසක් මතකය</div><div class="g-desc">ගැලපෙන කූඩු සොයා ගන්න</div><div class="g-score">🏅 <span class="gs" data-g="memory">0</span> pts</div><button class="play-btn" onclick="oG('memory')">▶ ක්‍රීඩා</button></div>
+    <div class="game-card"><span class="g-icon">☸️</span><div class="g-title">ධර්ම ප්‍රශ්නාවලිය</div><div class="g-desc">බෞද්ධ දන්නා ප්‍රශ්න</div><div class="g-score">🏅 <span class="gs" data-g="quiz">0</span> pts</div><button class="play-btn" onclick="oG('quiz')">▶ ක්‍රීඩා</button></div>
+    <div class="game-card"><span class="g-icon">🔤</span><div class="g-title">වෙසක් වචන</div><div class="g-desc">Wesak words - Hangman style</div><div class="g-score">🏅 <span class="gs" data-g="word">0</span> pts</div><button class="play-btn" onclick="oG('word')">▶ ක්‍රීඩා</button></div>
+    <div class="game-card"><span class="g-icon">🎯</span><div class="g-title">කූඩු ඇල්ල</div><div class="g-desc">Tap matching wesak icons fast!</div><div class="g-score">🏅 <span class="gs" data-g="tiles">0</span> pts</div><button class="play-btn" onclick="oG('tiles')">▶ ක්‍රීඩා</button></div>
+    <div class="game-card"><span class="g-icon">🌺</span><div class="g-title">නෙළුම් අල්ලන්න</div><div class="g-desc">Mouse/Touch - catch lotuses!</div><div class="g-score">🏅 <span class="gs" data-g="catch">0</span> pts</div><button class="play-btn" onclick="oG('catch')">▶ ක්‍රීඩා</button></div>
+  </div>
+</div>
+
+<!-- SCORES -->
+<div class="page" id="pg-scores">
+  <div class="sec">
+    <div class="sec-title">ශ්‍රේෂ්ඨ ලකුණු සටහන</div>
+    <div class="prize-banner" style="margin-bottom:18px">
+      <div class="prize-title">🥇 Top 5 ජයග්‍රාහකයන්ට ත්‍යාගය! 🎁</div>
+      <div class="prize-desc">ලකුණු වැඩිකර ශ්‍රේෂ්ඨ ත්‍යාගය දිනාගන්න!</div>
+    </div>
+    <div class="score-tbl-wrap">
+      <table class="score-tbl">
+        <thead><tr><th>#</th><th>නම</th><th>🧩</th><th>☸️</th><th>🔤</th><th>🎯</th><th>🌺</th><th>🏆</th></tr></thead>
+        <tbody id="scBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="page" id="pg-admin">
+  <div class="adm-wrap">
+    <div class="adm-title">⚙️ Admin Panel · වෙසක් දාන්සල</div>
+    <div class="ctrl-card">
+      <div style="font-size:15px;color:var(--gold);font-weight:700;margin-bottom:10px">🎛️ Website Control</div>
+      <div class="site-badge open" id="siteBadge">✅ OPEN - ක්‍රීඩකයන්ට access ඇත</div>
+      <div style="color:rgba(255,255,255,0.45);font-size:11px;margin-bottom:13px">OPEN: games & content accessible · STOP: all blocked for users</div>
+      <div class="ctrl-btns">
+        <button class="cbtn go" onclick="setSite(true)">✅ OPEN</button>
+        <button class="cbtn st" onclick="setSite(false)">🛑 STOP</button>
+      </div>
+    </div>
+    <div class="astat-grid">
+      <div class="astat"><div class="astat-n" id="adU">0</div><div class="astat-l">ලියාපදිංචි</div></div>
+      <div class="astat"><div class="astat-n" id="adG">0</div><div class="astat-l">ක්‍රීඩා</div></div>
+      <div class="astat"><div class="astat-n" id="adTop">0</div><div class="astat-l">ඉහළ ලකුණ</div></div>
+    </div>
+    <div class="asec">🏆 Scoreboard</div>
+    <div style="overflow-x:auto;margin-bottom:18px">
+      <table class="adm-tbl"><thead><tr><th>#</th><th>නම</th><th>ඊ-මේල්</th><th>ලකුණු</th><th>Bar</th></tr></thead><tbody id="adScore"></tbody></table>
+    </div>
+    <div class="asec">👥 Users</div>
+    <div style="overflow-x:auto">
+      <table class="adm-tbl"><thead><tr><th>#</th><th>නම</th><th>ඊ-මේල්</th><th>දුරකථන</th><th>ලකුණු</th><th>දිනය</th><th>Del</th></tr></thead><tbody id="adUsers"></tbody></table>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+      <button class="cbtn st" style="font-size:11px;padding:7px 14px" onclick="resetScores()">🗑️ Reset All Scores</button>
+      <button onclick="exportCSV()" style="padding:7px 14px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);color:var(--gold);border-radius:14px;font-size:11px">📥 Export CSV</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>🪔 වෙසක් දාන්සල 2026 · ශ්‍රී සද්ධර්ම ජය</div>
+  <div style="margin-top:5px">Made with <span>❤️</span> · සෑම දෙනාටම ශ්‍රේෂ්ඨ ශ්‍රී!</div>
+</footer>
+</div><!-- /mainSite -->
+
+<script>
+'use strict';
+// ============================================================
+// DB
+// ============================================================
+const DB={
+  k:'wd26',
+  get(){try{return JSON.parse(localStorage.getItem(this.k)||'{"users":[],"gc":0,"settings":{"open":true}}');}catch(e){return{"users":[],"gc":0,"settings":{"open":true}};}},
+  save(d){localStorage.setItem(this.k,JSON.stringify(d));},
+  init(){const d=this.get();if(!d.users.find(u=>u.email==='wesakdansala')){d.users.push({id:'admin',name:'Admin',phone:'0000000000',email:'wesakdansala',password:'wd2026',isAdmin:true,createdAt:new Date().toISOString(),scores:{memory:0,quiz:0,word:0,tiles:0,catch:0}});this.save(d);}}
+};
+DB.init();
+
+let CU=null;
+let catchTmr=null,catchMH=null;
+
+// ============================================================
+// LOGIN PAGE PARTICLES
+// ============================================================
+function initLoginParticles(){
+  const c=document.getElementById('loginParticles');
+  if(!c)return;
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  const ctx=c.getContext('2d');
+  const parts=[];
+  const colors=['#FFD700','#FF6B00','#FF69B4','#FFF','#4ECDC4','#FFB3D9'];
+  for(let i=0;i<50;i++){
+    parts.push({x:Math.random()*c.width,y:Math.random()*c.height,
+      r:Math.random()*3+1,vy:-(Math.random()*0.8+0.3),
+      vx:(Math.random()-0.5)*0.4,
+      col:colors[Math.floor(Math.random()*colors.length)],
+      alpha:Math.random()*0.8+0.2,fade:Math.random()*0.008+0.003});
+  }
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    parts.forEach(p=>{
+      ctx.save();ctx.globalAlpha=p.alpha;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.col;ctx.fill();
+      ctx.shadowBlur=p.r*4;ctx.shadowColor=p.col;ctx.fill();
+      ctx.restore();
+      p.y+=p.vy;p.x+=p.vx;p.alpha-=p.fade;
+      if(p.alpha<=0||p.y<-10){
+        p.y=c.height+10;p.x=Math.random()*c.width;
+        p.alpha=Math.random()*0.8+0.2;
+        p.col=colors[Math.floor(Math.random()*colors.length)];
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+initLoginParticles();
+window.addEventListener('resize',()=>{
+  const c=document.getElementById('loginParticles');
+  if(c){c.width=window.innerWidth;c.height=window.innerHeight;}
+});
+
+// ============================================================
+// BUILD LOGIN KUDU ROW (small animated)
+// ============================================================
+function buildLoginKudu(){
+  const row=document.getElementById('loginKuduRow');
+  if(!row)return;
+  const cfgs=[
+    {body:'#1e3ea0',fringe:'#1a3090',glow:'#4488ff'},
+    {body:'#d4a017',fringe:'#8a6a0a',glow:'#FFD700'},
+    {body:'#c0241a',fringe:'#7a0f0c',glow:'#ff4444'},
+    {body:'#e0e0e0',fringe:'#888',glow:'#fff'},
+    {body:'#c06010',fringe:'#7a3a08',glow:'#ff9800'},
+  ];
+  cfgs.forEach((c,i)=>{
+    const w=document.createElement('div');
+    w.style.cssText='display:flex;flex-direction:column;align-items:center;animation:kudusway '+(2.2+i*0.3)+'s ease-in-out infinite;transform-origin:top center;';
+    if(i%2===1)w.style.animationDirection='reverse';
+    w.innerHTML=`
+      <div style="width:1px;height:12px;background:rgba(255,215,0,0.5)"></div>
+      <div style="position:relative;width:28px;height:38px;background:${c.body};border-radius:3px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px ${c.glow}55">
+        <div style="width:12px;height:12px;border:1.5px solid rgba(255,255,255,0.6);border-radius:50%;position:relative">
+          <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(255,255,255,0.6);transform:translateY(-50%)"></div>
+          <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.6);transform:translateX(-50%)"></div>
+        </div>
+        <div style="position:absolute;bottom:-4px;width:6px;height:6px;background:${c.glow};border-radius:50%;box-shadow:0 0 8px ${c.glow}"></div>
+      </div>
+      <div style="display:flex;gap:1.5px;margin-top:1px">${Array.from({length:8},()=>`<div style="width:1.5px;height:${12+Math.random()*6|0}px;background:${c.fringe};border-radius:1px;animation:fringeMove ${1.5+Math.random()}s ease-in-out infinite"></div>`).join('')}</div>
+    `;
+    row.appendChild(w);
+  });
+}
+buildLoginKudu();
+
+// ============================================================
+// AUTH
+// ============================================================
+function doLogin(){
+  const id=document.getElementById('li').value.trim();
+  const pw=document.getElementById('lp').value;
+  document.getElementById('lerr').textContent='';
+  const db=DB.get();
+  const u=db.users.find(x=>(x.email===id||x.phone===id)&&x.password===pw);
+  if(!u){document.getElementById('lerr').textContent='❌ නිවැරදි ලිවිමේ ශ්‍රේෂ්ඨ!';return;}
+  CU=u;localStorage.setItem('wcu',u.id);enterSite(u);
+}
+function doRegister(){
+  const n=document.getElementById('rn').value.trim();
+  const ph=document.getElementById('rph').value.trim();
+  const em=document.getElementById('re').value.trim();
+  const pw=document.getElementById('rp').value;
+  document.getElementById('rerr').textContent='';
+  if(!n||!ph||!em||!pw){document.getElementById('rerr').textContent='⚠️ සියලු කොටස් පුරවන්න!';return;}
+  const db=DB.get();
+  if(db.users.find(u=>u.email===em)){document.getElementById('rerr').textContent='❌ ඊ-මේල් දැනටමත් ඇත!';return;}
+  const u={id:'u'+Date.now(),name:n,phone:ph,email:em,password:pw,isAdmin:false,createdAt:new Date().toISOString(),scores:{memory:0,quiz:0,word:0,tiles:0,catch:0}};
+  db.users.push(u);DB.save(db);CU=u;localStorage.setItem('wcu',u.id);
+  enterSite(u);
+}
+
+function enterSite(u){
+  // Animate login page out, main site in with lotus/kudu rain animation
+  const lp=document.getElementById('loginPage');
+  lp.style.transition='opacity 0.7s,transform 0.7s';
+  lp.style.opacity='0';lp.style.transform='scale(1.05)';
+  setTimeout(()=>{
+    lp.style.display='none';
+    const ms=document.getElementById('mainSite');
+    ms.style.display='block';ms.style.opacity='0';ms.style.transition='opacity 0.8s';
+    setTimeout(()=>{ms.style.opacity='1';},50);
+    // Show welcome burst
+    showOpenAnim('🌸 ස්වාගතයි, '+u.name+'! 🪔');
+    initMainCanvas();
+    buildHeroKudu();
+    buildLotusScene();
+    buildHeroStars();
+    document.getElementById('navGreet').textContent='🙏 '+u.name;
+    if(u.isAdmin)document.getElementById('admBtn').style.display='inline-block';
+    updateScoreDisplays();
+    checkSite();
+    notif('🙏 ස්වාගතයි, '+u.name+'!');
+  },700);
+}
+
+function doLogout(){
+  CU=null;localStorage.removeItem('wcu');
+  document.getElementById('mainSite').style.display='none';
+  const lp=document.getElementById('loginPage');
+  lp.style.display='flex';lp.style.opacity='1';lp.style.transform='';
+  document.getElementById('admBtn').style.display='none';
+  notif('👋 ගිය හෙළෙව!');
+}
+
+// Auto login
+(function(){
+  const id=localStorage.getItem('wcu');
+  if(id){const db=DB.get();const u=db.users.find(x=>x.id===id);if(u){CU=u;setTimeout(()=>enterSite(u),100);}}
+})();
+
+function swf(r){
+  document.getElementById('lForm').style.display=r?'none':'';
+  document.getElementById('rForm').style.display=r?'':'none';
+}
+
+// ============================================================
+// SITE STATUS
+// ============================================================
+function checkSite(){
+  const db=DB.get();
+  const open=db.settings?.open!==false;
+  const ov=document.getElementById('closedOverlay');
+  if(!open&&(!CU||!CU.isAdmin))ov.classList.add('on');
+  else ov.classList.remove('on');
+  const badge=document.getElementById('siteBadge');
+  if(badge){badge.textContent=open?'✅ OPEN - ක්‍රීඩකයන්ට access ඇත':'🛑 STOP - Website closed';badge.className='site-badge '+(open?'open':'closed');}
+}
+function setSite(o){
+  const db=DB.get();if(!db.settings)db.settings={};
+  db.settings.open=o;DB.save(db);
+  checkSite();refreshAdmin();
+  // Broadcast animation
+  const bar=document.getElementById('broadcastBar');
+  bar.textContent=o?'✅ දාන්සල OPEN කරන ලදී! සෑම දෙනාටම ස්වාගතයි! 🌸':'🛑 දාන්සල දැනට STOP කරන ලදී. ශ්‍රී සද්ධර්ම ජය!';
+  bar.className=o?'open-bar':'stop-bar';
+  bar.style.display='block';
+  document.body.style.paddingTop='40px';
+  if(o)showOpenAnim('🌸 දාන්සල OPEN! 🌸');
+  notif(o?'✅ Website OPEN!':'🛑 Website STOP!');
+  setTimeout(()=>{bar.style.display='none';document.body.style.paddingTop='0';},5000);
+}
+setInterval(()=>{if(CU)checkSite();},3000);
+
+// ============================================================
+// OPEN ANIMATION (lotus/kudu burst)
+// ============================================================
+function showOpenAnim(msg){
+  const div=document.createElement('div');
+  div.style.cssText='position:fixed;inset:0;z-index:9500;display:flex;align-items:center;justify-content:center;background:rgba(6,6,30,0.0);pointer-events:none;';
+  const items=['🌺','🌸','🪔','🏮','🪷','☸️','🌼','✨'];
+  let html='<div style="position:relative;width:300px;height:300px;">';
+  for(let i=0;i<18;i++){
+    const angle=Math.random()*360;
+    const dist=80+Math.random()*120;
+    const x=Math.cos(angle*Math.PI/180)*dist;
+    const y=Math.sin(angle*Math.PI/180)*dist;
+    const it=items[Math.floor(Math.random()*items.length)];
+    html+=`<div style="position:absolute;top:50%;left:50%;font-size:${22+Math.random()*18|0}px;animation:burstOut 1.2s ease-out forwards;animation-delay:${Math.random()*0.3}s;--tx:${x}px;--ty:${y}px;">
+      ${it}</div>`;
+  }
+  html+=`<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Cinzel Decorative',serif;font-size:clamp(14px,3vw,22px);color:var(--gold);text-shadow:0 0 20px rgba(255,215,0,0.8);text-align:center;white-space:nowrap;animation:fadeInOut 2s ease forwards">${msg}</div>`;
+  html+='</div>';
+  div.innerHTML=html;
+  // Inject animation if not present
+  if(!document.getElementById('burstStyle')){
+    const s=document.createElement('style');s.id='burstStyle';
+    s.textContent='@keyframes burstOut{from{transform:translate(-50%,-50%) scale(0);opacity:1;}to{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(1);opacity:0;}}@keyframes fadeInOut{0%{opacity:0;transform:translate(-50%,-50%) scale(0.5);}30%{opacity:1;transform:translate(-50%,-50%) scale(1);}80%{opacity:1;}100%{opacity:0;transform:translate(-50%,-50%) scale(1.1);}}';
+    document.head.appendChild(s);
+  }
+  document.body.appendChild(div);
+  setTimeout(()=>div.remove(),2500);
+}
+
+// ============================================================
+// MAIN CANVAS PARTICLES
+// ============================================================
+function initMainCanvas(){
+  const c=document.getElementById('particleCanvas');
+  if(!c)return;
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  const ctx=c.getContext('2d');
+  const parts=[];
+  const colors=['#FFD700','#FF6B00','#FF69B4','#FFF','#4ECDC4'];
+  for(let i=0;i<40;i++){
+    parts.push({x:Math.random()*c.width,y:Math.random()*c.height+c.height,
+      r:Math.random()*4+1,vy:-(Math.random()*0.6+0.2),
+      vx:(Math.random()-0.5)*0.3,
+      col:colors[Math.floor(Math.random()*colors.length)],
+      alpha:0,maxA:Math.random()*0.6+0.2,fade:Math.random()*0.005+0.002});
+  }
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    parts.forEach(p=>{
+      ctx.save();ctx.globalAlpha=p.alpha;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.col;ctx.shadowBlur=p.r*3;ctx.shadowColor=p.col;ctx.fill();
+      ctx.restore();
+      p.y+=p.vy;p.x+=p.vx;
+      if(p.alpha<p.maxA&&p.y<c.height*0.8)p.alpha+=0.005;
+      if(p.y<-20||p.alpha<=0){p.y=c.height+20;p.x=Math.random()*c.width;p.alpha=0;p.col=colors[Math.floor(Math.random()*colors.length)];}
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+  window.addEventListener('resize',()=>{c.width=window.innerWidth;c.height=window.innerHeight;});
+}
+
+// ============================================================
+// BUILD HERO KUDU (SVG inline)
+// ============================================================
+function buildHeroKudu(){
+  const strip=document.getElementById('kuduStrip');
+  if(!strip)return;strip.innerHTML='';
+  const cfgs=[
+    {body:'#1e3ea0',accent:'#3366cc',fringe:'#1a3090',glow:'#4488ff'},
+    {body:'#d4a017',accent:'#f0c040',fringe:'#8a6a0a',glow:'#FFD700'},
+    {body:'#c0241a',accent:'#e03030',fringe:'#7a0f0c',glow:'#ff4444'},
+    {body:'#e0e0e0',accent:'#fff',fringe:'#888',glow:'#ffffff'},
+    {body:'#c06010',accent:'#e07820',fringe:'#7a3a08',glow:'#ff9800'},
+    {body:'#1e3ea0',accent:'#3366cc',fringe:'#1a3090',glow:'#4488ff'},
+    {body:'#d4a017',accent:'#f0c040',fringe:'#8a6a0a',glow:'#FFD700'},
+    {body:'#c0241a',accent:'#e03030',fringe:'#7a0f0c',glow:'#ff4444'},
+    {body:'#e0e0e0',accent:'#fff',fringe:'#888',glow:'#ffffff'},
+    {body:'#c06010',accent:'#e07820',fringe:'#7a3a08',glow:'#ff9800'},
+    {body:'#1e3ea0',accent:'#3366cc',fringe:'#1a3090',glow:'#4488ff'},
+    {body:'#d4a017',accent:'#f0c040',fringe:'#8a6a0a',glow:'#FFD700'},
+  ];
+  cfgs.forEach((c,i)=>{
+    const dur=(2.2+i*0.25).toFixed(2);
+    const dir=i%2===0?'normal':'reverse';
+    const size=i===2||i===7?1.25:1; // middle ones bigger
+    const w=document.createElement('div');
+    w.className='kudu-wrap';
+    w.style.cssText=`animation-duration:${dur}s;animation-direction:${dir};transform:scale(${size});`;
+    const fw=Math.round(36*size),fh=Math.round(52*size);
+    const numFringe=9+Math.floor(size*2);
+    let fringeLines='';
+    for(let j=0;j<numFringe;j++){
+      const fx=-fw/2+4+(j*(fw-8)/(numFringe-1));
+      const flen=(fh*0.6+Math.random()*fh*0.3)|0;
+      fringeLines+=`<line x1="${fx}" y1="${fh+2}" x2="${fx+((Math.random()-0.5)*4|0)}" y2="${fh+2+flen}" stroke="${c.fringe}" stroke-width="1.2" opacity="0.85"/>`;
+    }
+    const svgH=fh+2+Math.round(fh*0.9)+30;
+    const svgNS='http://www.w3.org/2000/svg';
+    const gid='lg'+i+'_'+Date.now();
+    w.innerHTML=`
+      <div class="kudu-wire"></div>
+      <svg width="${fw+12}" height="${svgH}" viewBox="${-fw/2-6} -5 ${fw+12} ${svgH}" xmlns="${svgNS}" style="overflow:visible;filter:drop-shadow(0 0 6px ${c.glow}88)">
+        <defs>
+          <linearGradient id="${gid}" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="${c.accent}" stop-opacity="1"/>
+            <stop offset="100%" stop-color="${c.body}" stop-opacity="1"/>
+          </linearGradient>
+        </defs>
+        <!-- Body -->
+        <rect x="${-fw/2}" y="0" width="${fw}" height="${fh}" rx="3" fill="url(#${gid})"/>
+        <!-- Diamond highlight -->
+        <polygon points="0,${fh*0.12} ${fw*0.3},${fh*0.5} 0,${fh*0.88} ${-fw*0.3},${fh*0.5}" fill="rgba(255,215,0,0.18)"/>
+        <!-- Wheel -->
+        <circle cx="0" cy="${fh*0.5}" r="${fw*0.28}" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+        <line x1="0" y1="${fh*0.22}" x2="0" y2="${fh*0.78}" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+        <line x1="${-fw*0.28}" y1="${fh*0.5}" x2="${fw*0.28}" y2="${fh*0.5}" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+        <!-- Bulb -->
+        <circle cx="0" cy="${fh+6}" r="4" fill="${c.glow}" opacity="0.9" style="animation:bulbGlow 1.5s ease-in-out infinite alternate"/>
+        <circle cx="0" cy="${fh+6}" r="7" fill="${c.glow}" opacity="0.25"/>
+        <!-- Fringe -->
+        ${fringeLines}
+      </svg>
+    `;
+    strip.appendChild(w);
+  });
+  // Inject bulb glow anim if needed
+  if(!document.getElementById('bulbStyle')){
+    const s=document.createElement('style');s.id='bulbStyle';
+    s.textContent='@keyframes bulbGlow{from{opacity:0.5;r:3;}to{opacity:1;r:5;}}@keyframes fringeMove{0%,100%{transform:skewX(-4deg);}50%{transform:skewX(4deg);}}';
+    document.head.appendChild(s);
+  }
+}
+
+// ============================================================
+// BUILD LOTUS SCENE (SVG)
+// ============================================================
+function buildLotusScene(){
+  const scene=document.getElementById('lotusScene');
+  if(!scene)return;scene.innerHTML='';
+  // Create 5 lotus SVGs with different sizes and animations
+  const configs=[
+    {size:90,delay:0,dur:3.2,color:['#FF1493','#FF69B4','#FFB3D9']},
+    {size:70,delay:0.8,dur:2.8,color:['#FF69B4','#FF1493','#FFB3D9']},
+    {size:110,delay:0.4,dur:3.6,color:['#C2185B','#FF1493','#FF69B4']},
+    {size:75,delay:1.2,dur:2.5,color:['#FF69B4','#FFB3D9','#FF1493']},
+    {size:85,delay:0.6,dur:3.0,color:['#FF1493','#C2185B','#FF69B4']},
+  ];
+  configs.forEach((cfg,i)=>{
+    const s=cfg.size,np=8;
+    const wrapper=document.createElement('div');
+    wrapper.style.cssText=`animation:floatLotus ${cfg.dur}s ease-in-out infinite;animation-delay:${cfg.delay}s;flex-shrink:0;`;
+    let petals='';
+    for(let p=0;p<np;p++){
+      const angle=(360/np)*p;
+      const col=cfg.color[p%cfg.color.length];
+      petals+=`<ellipse cx="0" cy="${-s*0.28}" rx="${s*0.18}" ry="${s*0.42}" fill="${col}" transform="rotate(${angle})" opacity="${0.85+p*0.01}"/>`;
+    }
+    wrapper.innerHTML=`
+      <svg width="${s}" height="${s*1.1}" viewBox="${-s/2} ${-s/2} ${s} ${s*1.1}" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 8px rgba(255,105,180,0.5))">
+        <!-- Lily pad -->
+        <ellipse cx="0" cy="${s*0.42}" rx="${s*0.42}" ry="${s*0.12}" fill="#1a5c20" opacity="0.75"/>
+        <!-- Petals -->
+        ${petals}
+        <!-- Center -->
+        <circle cx="0" cy="0" r="${s*0.14}" fill="#FFD700"/>
+        <circle cx="0" cy="0" r="${s*0.08}" fill="#FF8F00"/>
+        <!-- Stamens -->
+        <circle cx="${s*0.06}" cy="${-s*0.04}" r="1.5" fill="#FFD700" opacity="0.8"/>
+        <circle cx="${-s*0.06}" cy="${s*0.04}" r="1.5" fill="#FFD700" opacity="0.8"/>
+        <circle cx="0" cy="${s*0.07}" r="1.5" fill="#FFD700" opacity="0.8"/>
+        <!-- Glow -->
+        <circle cx="0" cy="0" r="${s*0.15}" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.3"/>
+      </svg>
+    `;
+    scene.appendChild(wrapper);
+  });
+  if(!document.getElementById('lotusStyle')){
+    const s=document.createElement('style');s.id='lotusStyle';
+    s.textContent='@keyframes floatLotus{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-10px) rotate(3deg);}}';
+    document.head.appendChild(s);
+  }
+}
+
+// ============================================================
+// HERO STARS
+// ============================================================
+function buildHeroStars(){
+  const c=document.getElementById('heroStars');
+  if(!c)return;c.innerHTML='';
+  for(let i=0;i<55;i++){
+    const s=document.createElement('span');
+    const sz=Math.random()*2.5+0.5;
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;animation-duration:${1.5+Math.random()*3}s;animation-delay:${Math.random()*4}s;`;
+    c.appendChild(s);
+  }
+}
+
+// ============================================================
+// NAV
+// ============================================================
+function goP(name,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-'+name).classList.add('on');
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  if(name==='scores')renderScores();
+  if(name==='admin')refreshAdmin();
+}
+
+// ============================================================
+// SCORES
+// ============================================================
+function updateScoreDisplays(){
+  if(!CU)return;
+  document.querySelectorAll('.gs').forEach(el=>{el.textContent=(CU.scores&&CU.scores[el.dataset.g])||0;});
+}
+function addScore(game,pts){
+  if(!CU)return;
+  const db=DB.get();
+  const u=db.users.find(x=>x.id===CU.id);
+  if(!u)return;
+  if(!u.scores)u.scores={memory:0,quiz:0,word:0,tiles:0,catch:0};
+  u.scores[game]=Math.max(u.scores[game]||0,pts);
+  db.gc=(db.gc||0)+1;DB.save(db);
+  CU.scores=u.scores;updateScoreDisplays();
+  notif('🎉 +'+pts+' pts!');
+}
+function renderScores(){
+  const db=DB.get();
+  const rows=db.users.filter(u=>!u.isAdmin).map(u=>{
+    const s=u.scores||{};
+    return{name:u.name,m:s.memory||0,q:s.quiz||0,w:s.word||0,t:s.tiles||0,c:s.catch||0,
+      tot:(s.memory||0)+(s.quiz||0)+(s.word||0)+(s.tiles||0)+(s.catch||0)};
+  }).sort((a,b)=>b.tot-a.tot);
+  const rcs=['r1','r2','r3','rn'];
+  document.getElementById('scBody').innerHTML=rows.map((r,i)=>`
+    <tr><td><span class="rb ${rcs[Math.min(i,3)]}">${i+1}</span></td><td style="font-weight:600">${r.name}</td>
+    <td>${r.m}</td><td>${r.q}</td><td>${r.w}</td><td>${r.t}</td><td>${r.c}</td>
+    <td style="color:var(--gold);font-weight:700">${r.tot}</td></tr>
+  `).join('')||'<tr><td colspan="8" style="text-align:center;padding:18px;color:rgba(255,255,255,0.3)">ක්‍රීඩකයන් නොමැත</td></tr>';
+}
+
+// ============================================================
+// ADMIN
+// ============================================================
+function refreshAdmin(){
+  const db=DB.get();
+  const users=db.users.filter(u=>!u.isAdmin);
+  document.getElementById('adU').textContent=users.length;
+  document.getElementById('adG').textContent=db.gc||0;
+  const sorted=[...users].map(u=>({...u,tot:Object.values(u.scores||{}).reduce((a,b)=>a+b,0)})).sort((a,b)=>b.tot-a.tot);
+  const maxT=sorted[0]?.tot||1;
+  document.getElementById('adTop').textContent=sorted[0]?.tot||0;
+  document.getElementById('adScore').innerHTML=sorted.map((u,i)=>`
+    <tr><td>${i+1}</td><td>${u.name}</td><td>${u.email}</td>
+    <td style="color:var(--gold);font-weight:700">${u.tot}</td>
+    <td style="width:100px"><div class="score-bar"><div class="score-fill" style="width:${Math.round(u.tot/maxT*100)}%"></div></div></td></tr>
+  `).join('')||'<tr><td colspan="5" style="text-align:center;padding:12px;color:rgba(255,255,255,0.3)">-</td></tr>';
+  document.getElementById('adUsers').innerHTML=users.map((u,i)=>{
+    const tot=Object.values(u.scores||{}).reduce((a,b)=>a+b,0);
+    return`<tr><td>${i+1}</td><td>${u.name}</td><td>${u.email}</td><td>${u.phone}</td>
+    <td style="color:var(--gold)">${tot}</td><td>${u.createdAt?.slice(0,10)||'-'}</td>
+    <td><button class="del-btn" onclick="delU('${u.id}')">🗑️</button></td></tr>`;
+  }).join('')||'<tr><td colspan="7" style="text-align:center;padding:12px;color:rgba(255,255,255,0.3)">-</td></tr>';
+  checkSite();
+}
+function delU(id){if(!confirm('ඉවත් කරන්නද?'))return;const db=DB.get();db.users=db.users.filter(u=>u.id!==id);DB.save(db);refreshAdmin();notif('🗑️ Done');}
+function resetScores(){if(!confirm('සියලු ලකුණු Reset?'))return;const db=DB.get();db.users.forEach(u=>{if(!u.isAdmin)u.scores={memory:0,quiz:0,word:0,tiles:0,catch:0};});db.gc=0;DB.save(db);refreshAdmin();notif('✅ Reset!');}
+function exportCSV(){
+  const db=DB.get();const u=db.users.filter(x=>!x.isAdmin);
+  const rows=[['#','Name','Email','Phone','Total','Registered'],...u.map((x,i)=>[i+1,x.name,x.email,x.phone,Object.values(x.scores||{}).reduce((a,b)=>a+b,0),x.createdAt?.slice(0,10)||'-'])];
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download='wesak_users.csv';a.click();
+}
+
+// ============================================================
+// GAMES
+// ============================================================
+function oG(name){
+  const db=DB.get();
+  if(db.settings?.open===false&&(!CU||!CU.isAdmin)){notif('🛑 ක්‍රීඩා STOP!');return;}
+  if(!CU){notif('⚠️ ලොගින් කරන්න!');return;}
+  const titles={memory:'🧩 වෙසක් මතකය',quiz:'☸️ ධර්ම ප්‍රශ්නාවලිය',word:'🔤 වෙසක් වචන',tiles:'🎯 කූඩු ඇල්ල',catch:'🌺 නෙළුම් අල්ලන්න'};
+  document.getElementById('gTitle').textContent=titles[name];
+  document.getElementById('gModal').classList.add('on');
+  const area=document.getElementById('gArea');
+  if(name==='memory')initMem(area);
+  else if(name==='quiz')initQuiz(area);
+  else if(name==='word')initWord(area);
+  else if(name==='tiles')initTiles(area);
+  else if(name==='catch')initCatch(area);
+}
+function closeGame(){
+  document.getElementById('gModal').classList.remove('on');
+  if(catchTmr){clearInterval(catchTmr);catchTmr=null;}
+  if(catchMH){document.removeEventListener('mousemove',catchMH);document.removeEventListener('touchmove',catchMH);catchMH=null;}
+  updateScoreDisplays();
+}
+
+// MEMORY
+const MICONS=['🪔','🌺','☸️','🙏','🏮','🪷','🌸','🌼'];
+function initMem(area){
+  let cards=[...MICONS,...MICONS].sort(()=>Math.random()-0.5);
+  let flipped=[],matched=0,score=0,level=1,locked=false;
+  function render(){
+    area.innerHTML=`<div class="lvl-badge">Level ${level}</div><div class="sc-disp">ලකුණු: <span id="ms">${score}</span></div>
+    <div class="mem-grid" id="mg"></div>
+    <button class="play-btn" style="margin:14px auto;display:block" onclick="initMem(document.getElementById('gArea'))">🔄</button>`;
+    const g=document.getElementById('mg');
+    cards.forEach((c,i)=>{
+      const el=document.createElement('div');el.className='mc';
+      el.innerHTML=`<div class="mb">🪔</div><div class="mf">${c}</div>`;
+      el.onclick=()=>{
+        if(locked||el.classList.contains('fl')||el.classList.contains('dn'))return;
+        el.classList.add('fl');flipped.push({el,val:c});
+        if(flipped.length===2){locked=true;setTimeout(()=>{
+          if(flipped[0].val===flipped[1].val){flipped.forEach(f=>f.el.classList.replace('fl','dn'));matched++;score+=5*level;document.getElementById('ms').textContent=score;
+            if(matched===8){level++;addScore('memory',score);notif('🎉 Level '+level+'!');matched=0;cards=[...MICONS,...MICONS].sort(()=>Math.random()-0.5);flipped=[];locked=false;render();return;}
+          }else{flipped.forEach(f=>f.el.classList.remove('fl'));}
+          flipped=[];locked=false;
+        },650);}
+      };
+      g.appendChild(el);
+    });
+  }
+  render();
+}
+
+// QUIZ
+const QD=[
+  {q:"ගෞතම බුදුරාජාණන් වහන්සේ ජනනය ලද ස්ථානය?",o:["ලුම්බිනි (නේපාලය)","කපිලවස්තු","ගයා (ඉන්දියාව)","සාරනාත්"],a:0,p:1},
+  {q:"සම්‍යක් සම්බෝධිය ලද ස්ථානය?",o:["ලුම්බිනි","ගයා (ඉන්දියාව)","කුශිනාරා","රාජගෘහ"],a:1,p:1},
+  {q:"ගෞතම බුදුරාජාණන් වහන්සේගේ රාජකීය නාමය?",o:["සිද්ධාර්ථ ගෞතම","ආනන්ද","සාරිපුත්ත","කාශ්‍යප"],a:0,p:1},
+  {q:"නෙළුම් මල් (Lotus) බෞද්ධ සංකේතය?",o:["දුකේ සංකේතය","ශුද්ධිය හා ප්‍රබෝධය","ශ්‍රේෂ්ඨ ශ්‍රී","ශ්‍රේෂ්ඨ"],a:1,p:1},
+  {q:"ත්‍රිරත්නය (Triple Gem) ?",o:["ශ්‍රී ශ්‍රේෂ්ඨ","බුද්ධ, ධර්ම, සංඝ","ශ්‍රේෂ්ඨ ශ්‍රී","ශ්‍රී"],a:1,p:1},
+  {q:"ධර්ම චක්‍රයේ ශ්‍රේෂ්ඨ ශ්‍රී spoke ගණන?",o:["4","8","12","16"],a:1,p:2},
+  {q:"ශ්‍රී ලංකාවේ බෞද්ධ ජනගහනය ආසන්නව?",o:["50%","60%","70%","80%"],a:2,p:2},
+  {q:"ත්‍රිපිටකය කොටස් ගණන?",o:["2","3","4","5"],a:1,p:2},
+  {q:"2026 දී ශ්‍රී ලංකාව සමරන්නේ Wesak කීවෙනිද?",o:["2550","2568","2570","2580"],a:2,p:2},
+  {q:"Vesak/Vesak නාමය ශ්‍රේෂ්ඨ ශ්‍රී?",o:["ශ්‍රේෂ්ඨ","Vaisākha (Buddhist calendar month)","ශ්‍රේෂ්ඨ ශ්‍රී","ශ්‍රේෂ්ඨ"],a:1,p:3},
+];
+function initQuiz(area){
+  let qi=0,score=0;
+  function showQ(){
+    if(qi>=QD.length){area.innerHTML=`<div style="text-align:center;padding:35px"><div style="font-size:44px">🏆</div><div style="color:var(--gold);font-size:20px;margin:12px 0">ශ්‍රේෂ්ඨ! ලකුණු: ${score}</div><button class="play-btn" onclick="initQuiz(document.getElementById('gArea'))">🔄</button></div>`;addScore('quiz',score);return;}
+    const q=QD[qi];
+    area.innerHTML=`<div class="lvl-badge">ශ්‍රේෂ්ඨ ${qi+1}/${QD.length}</div><div class="sc-disp">ලකුණු: ${score}</div>
+    <div class="qq">${q.q}</div><div class="qopts">${q.o.map((o,i)=>`<button class="qo" onclick="ck(${i})">${o}</button>`).join('')}</div>`;
+  }
+  window.ck=function(i){const q=QD[qi];document.querySelectorAll('.qo').forEach((b,j)=>{b.disabled=true;if(j===q.a)b.classList.add('ok');});
+    if(i===q.a){score+=q.p;document.querySelectorAll('.qo')[i].classList.add('ok');notif('✅ ශ්‍රේෂ්ඨ! +'+q.p);}else{document.querySelectorAll('.qo')[i].classList.add('no');notif('❌');}
+    setTimeout(()=>{qi++;showQ();},1050);};
+  showQ();
+}
+
+// WORD
+const WD=[
+  {w:"WESAK",h:"ශ්‍රී ලංකාවේ Buddhist celebration day"},
+  {w:"LOTUS",h:"Pink flower growing in water (නෙළුම)"},
+  {w:"BUDDHA",h:"The Enlightened One (ගෞතම)"},
+  {w:"DHARMA",h:"The Buddhist teaching / ධර්ම"},
+  {w:"LANTERN",h:"Glowing light holder / ලාම්පු"},
+  {w:"SANGHA",h:"Buddhist monk community"},
+  {w:"TEMPLE",h:"Place of worship / විහාරය"},
+  {w:"NIRVANA",h:"Ultimate Buddhist liberation / නිවාන"},
+  {w:"SINHALA",h:"Sri Lanka's main language / සිංහල"},
+  {w:"DANSALA",h:"Free food offering place / දාන්සල"},
+  {w:"BODHI",h:"Sacred Bo tree / ශ්‍රී බෝ"},
+  {w:"PANSALA",h:"Buddhist monastery / පන්සල"},
+];
+function initWord(area){
+  let wi=Math.floor(Math.random()*WD.length),score=0,lives=6,guessed=[],level=1;
+  function render(){
+    const wd=WD[wi].w;
+    const disp=wd.split('').map(c=>guessed.includes(c)?c:'_').join(' ');
+    const wrong=guessed.filter(c=>!wd.includes(c));
+    area.innerHTML=`<div class="lvl-badge">Level ${level}</div><div class="sc-disp">ලකුණු: ${score}</div>
+    <div class="w-clue">💡 ${WD[wi].h}</div><div class="w-disp">${disp}</div>
+    <div class="lives-row">${Array.from({length:6},(_,i)=>i<lives?'❤️':'🖤').join('')}</div>
+    <div class="wrong-list">❌ ${wrong.join(' ')}</div>
+    <div class="alpha-grid">${Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ').map(c=>`<button class="ab" ${guessed.includes(c)?'disabled':''} onclick="gl('${c}')">${c}</button>`).join('')}</div>`;
+  }
+  window.gl=function(c){
+    guessed.push(c);const wd=WD[wi].w;if(!wd.includes(c))lives--;
+    if(wd.split('').every(l=>guessed.includes(l))){score+=lives*level;level++;notif('🎉 +'+lives+'pts');
+      wi=(wi+1)%WD.length;guessed=[];lives=6;
+      if(level>WD.length){addScore('word',score);area.innerHTML=`<div style="text-align:center;padding:35px"><div style="font-size:44px">🏆</div><div style="color:var(--gold);font-size:20px;margin:12px">ශ්‍රේෂ්ඨ! ${score}</div><button class="play-btn" onclick="initWord(document.getElementById('gArea'))">🔄</button></div>`;return;}
+    }else if(lives<=0){addScore('word',score);area.innerHTML=`<div style="text-align:center;padding:35px"><div style="font-size:44px">💔</div><div style="color:#f44;font-size:18px;margin:12px">Game Over! ${score}</div><div style="color:var(--gold)">ශ්‍රේෂ්ඨ: ${wd}</div><button class="play-btn" style="margin-top:12px" onclick="initWord(document.getElementById('gArea'))">🔄</button></div>`;return;}
+    render();};
+  render();
+}
+
+// TILES
+function initTiles(area){
+  let score=0,level=1,lives=3,active=true,tmr=null;
+  const pal=['🪔','🌺','☸️','🏮','🌸','🪷'];
+  let target='',grid=[];
+  function newRound(){
+    target=pal[Math.floor(Math.random()*pal.length)];
+    const count=9+level*2;grid=[];
+    for(let i=0;i<count;i++)grid.push(pal[Math.floor(Math.random()*pal.length)]);
+    if(!grid.includes(target))grid[Math.floor(Math.random()*count)]=target;
+    grid.sort(()=>Math.random()-0.5);
+    if(tmr)clearTimeout(tmr);
+    const tl=Math.max(1800,5000-level*400);
+    tmr=setTimeout(()=>{if(!active)return;lives--;notif('⏰!');if(lives<=0){active=false;endG();}else{newRound();}},tl);
+    render();
+  }
+  function render(){
+    const cols=Math.min(5,3+Math.floor(level/2));
+    area.innerHTML=`<div class="lvl-badge">Level ${level}</div><div class="sc-disp">❤️${'❤️'.repeat(Math.max(0,lives))} · ${score}</div>
+    <div style="text-align:center;font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:8px">ශ්‍රේෂ්ඨ ශ්‍රී tap:</div>
+    <div style="font-size:48px;text-align:center;margin-bottom:14px;animation:floatBig 1s ease-in-out infinite">${target}</div>
+    <div class="tiles-grid" style="grid-template-columns:repeat(${cols},1fr)">${grid.map(e=>`<div class="tile" onclick="tC('${e}')">${e}</div>`).join('')}</div>`;
+  }
+  window.tC=function(e){if(!active)return;if(tmr)clearTimeout(tmr);
+    if(e===target){score+=level;level++;notif('✅ +'+level);}else{lives--;notif('❌');if(lives<=0){active=false;endG();return;}}
+    if(active)newRound();};
+  function endG(){addScore('tiles',score);area.innerHTML=`<div style="text-align:center;padding:35px"><div style="font-size:44px">🎯</div><div style="color:var(--gold);font-size:20px;margin:12px">ශ්‍රේෂ්ඨ! ${score}</div><button class="play-btn" onclick="initTiles(document.getElementById('gArea'))">🔄</button></div>`;}
+  newRound();
+}
+
+// CATCH
+function initCatch(area){
+  let score=0,level=1,lives=3,active=true;
+  const good=['🪔','🌺','🌸','🏮','🪷','☸️','🌼'];
+  const bad=['💀','🐍','❌'];
+  area.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:8px">
+    <div class="lvl-badge">Level ${level}</div>
+    <div class="sc-disp" id="chud">❤️❤️❤️ · 0</div>
+  </div>
+  <div style="font-size:11px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:6px">Mouse/Touch ගෙනියන්න 🧺</div>
+  <div class="catch-arena" id="ca"><div class="catcher-el" id="cat" style="left:50%">🧺</div></div>`;
+  const ca=document.getElementById('ca'),cat=document.getElementById('cat');
+  let bx=50;
+  catchMH=function(e){const r=ca.getBoundingClientRect();const cx=e.touches?e.touches[0].clientX:e.clientX;bx=Math.max(5,Math.min(92,(cx-r.left)/r.width*100));cat.style.left=bx+'%';};
+  document.addEventListener('mousemove',catchMH);document.addEventListener('touchmove',catchMH,{passive:true});
+  function upHUD(){document.getElementById('chud').textContent='❤️'.repeat(Math.max(0,lives))+' · '+score;}
+  function spawn(){
+    if(!active)return;
+    const el=document.createElement('div');el.className='fall-el';
+    const isBad=Math.random()<0.18;
+    el.textContent=(isBad?bad:good)[Math.floor(Math.random()*(isBad?bad.length:good.length))];
+    el.style.left=(Math.random()*86+2)+'%';
+    const dur=Math.max(1.1,3.2-level*0.2);el.style.animationDuration=dur+'s';
+    ca.appendChild(el);
+    const ck=setInterval(()=>{
+      if(!el.parentNode){clearInterval(ck);return;}
+      const er=el.getBoundingClientRect(),br=cat.getBoundingClientRect();
+      if(er.bottom>=br.top&&er.left<br.right&&er.right>br.left){
+        clearInterval(ck);el.remove();
+        if(isBad){lives--;notif('💀');if(lives<=0){active=false;if(catchTmr){clearInterval(catchTmr);catchTmr=null;}addScore('catch',score);area.innerHTML=`<div style="text-align:center;padding:35px"><div style="font-size:44px">💔</div><div style="color:#f44;font-size:20px;margin:12px">Game Over! ${score}</div><button class="play-btn" onclick="initCatch(document.getElementById('gArea'))">🔄</button></div>`;return;}}
+        else{score+=level;if(score>=level*15)level++;notif('✨ +'+level);}
+        upHUD();
+      }
+      if(er.top>window.innerHeight+50){clearInterval(ck);el.remove();}
+    },40);
+    setTimeout(()=>{if(el.parentNode)el.remove();},dur*1000+400);
+  }
+  catchTmr=setInterval(spawn,Math.max(350,1200-level*70));
+}
+
+// ============================================================
+// NOTIFICATION
+// ============================================================
+function notif(msg){const n=document.getElementById('notif');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),2600);}
+
+// Add missing CSS animation for kudu
+const ks=document.createElement('style');
+ks.textContent='@keyframes kudusway{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}@keyframes floatBig{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}';
+document.head.appendChild(ks);
+</script>
+</body>
+</html>
